@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.serratec.monitoria.dto.PessoaDTO;
@@ -22,6 +23,9 @@ public class PessoaService {
 
 	@Autowired
 	private Mapper<PessoaDTO, Pessoa> mapper;
+
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	public PessoaService() {
 		System.out.println("Fui iniciado...");
@@ -40,6 +44,7 @@ public class PessoaService {
 	}
 
 	public PessoaDTO create(PessoaDTO pessoaDto) {
+		pessoaDto.setSenha(passwordEncoder.encode(pessoaDto.getNome()));
 		return mapper.toDto(pessoaRepository.save(mapper.toModel(pessoaDto)));
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,10 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.serratec.monitoria.dto.PessoaDTO;
 import br.com.serratec.monitoria.exception.CustomException;
 import br.com.serratec.monitoria.model.Pessoa;
+import br.com.serratec.monitoria.model.UserDetailsImpl;
 import br.com.serratec.monitoria.service.PessoaService;
 
 @RestController
-@RequestMapping("pessoa")
+@RequestMapping("/pessoa")
 public class PessoaController {
 
 	@Autowired
@@ -42,7 +44,7 @@ public class PessoaController {
 		return ResponseEntity.ok(pessoaService.findById(id));
 	}
 
-	@PostMapping
+	@PostMapping("/cadastrar")
 	public ResponseEntity<PessoaDTO> create(@RequestBody PessoaDTO pessoa) {
 		return new ResponseEntity<>(pessoaService.create(pessoa), HttpStatus.CREATED);
 	}
@@ -58,6 +60,12 @@ public class PessoaController {
 		pessoaService.delete(id);
 //		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 //		return ResponseEntity.noContent().build();
+	}
+
+	@GetMapping("/me")
+	public ResponseEntity<UserDetailsImpl> me() {
+		return ResponseEntity
+				.ok((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 	}
 
 }

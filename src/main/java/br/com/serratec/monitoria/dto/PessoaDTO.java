@@ -1,17 +1,27 @@
 package br.com.serratec.monitoria.dto;
 
 public class PessoaDTO {
-	
+
 	private Long id;
-	
+
 	private String nome;
-	
+
 	private String sobrenome;
 
-	public PessoaDTO(Long id, String nome, String sobrenome) {
+	private String senha;
+
+	private String username;
+
+	public PessoaDTO() {
+		super();
+	}
+
+	public PessoaDTO(Long id, String nome, String sobrenome, String username, String senha) {
 		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
+		this.username = username;
+		this.senha = senha;
 	}
 
 	public Long getId() {
@@ -30,13 +40,28 @@ public class PessoaDTO {
 		this.nome = nome;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getSobrenome() {
-		
 		return sobrenome;
 	}
 
 	public void setSobrenome(String sobrenome) {
-		if(sobrenome != null && !"".equals(sobrenome)) {
+		if (sobrenome != null && !"".equals(sobrenome)) {
 			this.sobrenome = sobrenome;
 		}
 	}

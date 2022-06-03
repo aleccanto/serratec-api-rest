@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -21,14 +20,16 @@ public class Pessoa {
 
 	private String sobrenome;
 
+	private String username;
+	
+	private String password;
+
 //	@OneToMany(mappedBy = "pessoa")
 //	private List<Carro> carros;
-	
-	
+
 	@ManyToMany(mappedBy = "pessoas")
 	private List<Carro> carros;
-	
-	
+
 	@OneToOne(mappedBy = "pessoa")
 	private Aluga aluga;
 
@@ -36,12 +37,30 @@ public class Pessoa {
 
 	}
 
-	public Pessoa(Long id, String nome, String sobrenome) {
+	public Pessoa(Long id, String nome, String sobrenome, String username, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
+		this.username = username;
+		this.password = senha;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 	public String getNome() {
 		return nome;
