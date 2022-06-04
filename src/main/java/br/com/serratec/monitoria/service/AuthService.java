@@ -23,7 +23,7 @@ public class AuthService implements UserDetailsService {
 		Optional<Pessoa> pessoa = pessoaRepository.findByUsername(username);
 
 		if (pessoa.isEmpty()) {
-			throw new UsernameNotFoundException("Ususario " + username + " não existe");
+			throw new UsernameNotFoundException("Usuário " + username + " não existe");
 		}
 
 		return new UserDetailsImpl(pessoa.get().getNome(), pessoa.get().getPassword(), pessoa.get().getId());

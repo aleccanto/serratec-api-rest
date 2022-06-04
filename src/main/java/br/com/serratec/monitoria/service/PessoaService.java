@@ -44,7 +44,7 @@ public class PessoaService {
 	}
 
 	public PessoaDTO create(PessoaDTO pessoaDto) {
-		pessoaDto.setSenha(passwordEncoder.encode(pessoaDto.getNome()));
+		pessoaDto.setSenha(passwordEncoder.encode(pessoaDto.getSenha()));
 		return mapper.toDto(pessoaRepository.save(mapper.toModel(pessoaDto)));
 	}
 
